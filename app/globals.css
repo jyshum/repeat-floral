@@ -1,26 +1,84 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: #ffffff;
+  --color-foreground: #2d2d2d;
+
+  /* Repeat Floral Palette */
+  --color-petal-yellow: #F6EFA6;
+  --color-honey: #FDE38E;
+  --color-sage-light: #D2E0BF;
+  --color-sage: #B4CEB3;
+  --color-sky: #BFD7EA;
+  --color-rose: #E988A6;
+  --color-blush: #F8A9C8;
+  --color-linen: #F3E7E0;
+  --color-petal-pink: #FAD4D8;
+  --color-lavender: #C692C7;
+
+  --font-display: var(--font-cormorant);
+  --font-body: var(--font-lato);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Disable dark mode override */
+body {
+  background: #ffffff;
+  color: #2d2d2d;
+  font-family: var(--font-lato), Georgia, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── Hero Animations ── */
+@keyframes expandCircle {
+  from {
+    opacity: 0;
+    transform: scale(0.75);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-circle  { animation: expandCircle 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both; }
+.hero-logo    { animation: fadeIn      0.9s ease-out                          1.1s both; }
+.hero-title   { animation: fadeInUp    0.8s ease-out                          1.8s both; }
+.hero-slogan  { animation: fadeInUp    0.8s ease-out                          2.3s both; }
+
+/* ── Vertical fall — animates the `translate` CSS property only ── */
+@keyframes floralFall {
+  0%   { translate: 0 -70px; opacity: 0;    }
+  6%   {                      opacity: 0.86; }
+  94%  {                      opacity: 0.86; }
+  100% { translate: 0 108vh;  opacity: 0;    }
+}
+
+/* ── Horizontal sway — uses `transform: translateX` on a separate wrapper
+   div (Layer 2). Layer 3's `transform: rotate` and `translate` property
+   are on a different element so they compose independently. ── */
+@keyframes floralSway {
+  0%   { transform: translateX(0px);   }
+  28%  { transform: translateX(18px);  }
+  72%  { transform: translateX(-14px); }
+  100% { transform: translateX(0px);   }
+}
+
