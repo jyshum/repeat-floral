@@ -1,34 +1,57 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 const links = [
-  { label: "About us", href: "#about" },
-  { label: "Register", href: "#register" },
-  { label: "Meet the team", href: "#team" },
-  { label: "Volunteer", href: "#join" },
+  { label: "Request", href: "/request" },
+  { label: "Meet the Team", href: "#team" },
+  { label: "Volunteer", href: "#volunteer" },
 ];
 
 export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#F3E7E0] border-b border-[F3E7E0]">
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo mark */}
-        <Link href="#hero" className="flex items-center gap-2" onClick={() => setOpen(false)}>
+    <nav
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+      style={{
+        background: scrolled
+          ? "rgba(243, 231, 224, 0.92)"
+          : "transparent",
+        backdropFilter: scrolled ? "blur(16px)" : "none",
+        WebkitBackdropFilter: scrolled ? "blur(16px)" : "none",
+        borderBottom: scrolled ? "1px solid #D2E0BF" : "1px solid transparent",
+        boxShadow: scrolled ? "0 2px 24px rgba(0,0,0,0.04)" : "none",
+      }}
+    >
+      <div className="max-w-6xl mx-auto px-8 h-16 flex items-center justify-between">
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
           <Image
             src="/repeatFloralLOGO.png"
             alt="Repeat Floral"
-            width={47}
-            height={47}
+            width={36}
+            height={36}
             className="object-contain"
           />
           <span
-            className="text-lg tracking-widest uppercase"
-            style={{ fontFamily: "var(--font-cormorant)", fontWeight: 500, letterSpacing: "0.18em" }}
+            style={{
+              fontFamily: "var(--font-cormorant)",
+              fontWeight: 500,
+              letterSpacing: "0.18em",
+              fontSize: "1.05rem",
+              color: "#2d2d2d",
+              textTransform: "uppercase",
+            }}
           >
             Repeat Floral
           </span>
@@ -40,8 +63,17 @@ export default function Navbar() {
             <li key={l.href}>
               <Link
                 href={l.href}
-                className="text-sm tracking-widest uppercase text-[#2d2d2d] hover:text-[#E988A6] transition-colors"
-                style={{ fontFamily: "var(--font-lato)", fontWeight: 300 }}
+                style={{
+                  fontFamily: "var(--font-dm-sans)",
+                  fontWeight: 400,
+                  fontSize: "0.8rem",
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: "#2d2d2d",
+                  transition: "color 0.2s",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#E988A6")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "#2d2d2d")}
               >
                 {l.label}
               </Link>
@@ -55,21 +87,44 @@ export default function Navbar() {
           onClick={() => setOpen((v) => !v)}
           aria-label="Toggle menu"
         >
-          <span className={`block w-5 h-px bg-[#2d2d2d] transition-all ${open ? "rotate-45 translate-y-2" : ""}`} />
-          <span className={`block w-5 h-px bg-[#2d2d2d] transition-all ${open ? "opacity-0" : ""}`} />
-          <span className={`block w-5 h-px bg-[#2d2d2d] transition-all ${open ? "-rotate-45 -translate-y-2" : ""}`} />
+          <span
+            className="block w-5 h-px bg-[#2d2d2d] transition-all duration-300"
+            style={{ transform: open ? "rotate(45deg) translateY(8px)" : "none" }}
+          />
+          <span
+            className="block w-5 h-px bg-[#2d2d2d] transition-all duration-300"
+            style={{ opacity: open ? 0 : 1 }}
+          />
+          <span
+            className="block w-5 h-px bg-[#2d2d2d] transition-all duration-300"
+            style={{ transform: open ? "rotate(-45deg) translateY(-8px)" : "none" }}
+          />
         </button>
       </div>
 
       {/* Mobile dropdown */}
       {open && (
-        <div className="md:hidden bg-[#B4CEB3] border-t border-[#9ab89a] px-6 py-4 flex flex-col gap-4">
+        <div
+          className="md:hidden px-8 py-6 flex flex-col gap-5"
+          style={{
+            background: "rgba(243, 231, 224, 0.97)",
+            backdropFilter: "blur(16px)",
+            WebkitBackdropFilter: "blur(16px)",
+            borderTop: "1px solid #D2E0BF",
+          }}
+        >
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className="text-sm tracking-widest uppercase text-[#2d2d2d] hover:text-[#E988A6] transition-colors"
-              style={{ fontFamily: "var(--font-lato)", fontWeight: 300 }}
+              style={{
+                fontFamily: "var(--font-dm-sans)",
+                fontWeight: 400,
+                fontSize: "0.8rem",
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: "#2d2d2d",
+              }}
               onClick={() => setOpen(false)}
             >
               {l.label}

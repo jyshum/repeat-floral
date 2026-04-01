@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Lato } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -9,15 +9,15 @@ const cormorant = Cormorant_Garamond({
   style: ["normal", "italic"],
 });
 
-const lato = Lato({
-  variable: "--font-lato",
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
-  weight: ["300", "400", "700"],
+  weight: ["300", "400", "500"],
 });
 
 export const metadata: Metadata = {
   title: "Repeat Floral",
-  description: "Repurpose your wedding flowers.",
+  description: "Up-cycling wedding flowers to promote sustainability and lengthen the joy that nature brings to our communities.",
 };
 
 export default function RootLayout({
@@ -26,8 +26,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${lato.variable}`}>
-      <body className="min-h-full bg-white text-[#2d2d2d]">{children}</body>
+    <html lang="en" className={`${cormorant.variable} ${dmSans.variable}`}>
+      <body className="min-h-full" style={{ background: "#F3E7E0", color: "#2d2d2d" }}>
+        {children}
+      </body>
     </html>
   );
 }
