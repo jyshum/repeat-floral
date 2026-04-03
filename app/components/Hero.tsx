@@ -41,12 +41,14 @@ export default function Hero() {
       className="relative min-h-screen flex items-start pt-16"
       style={{ background: "#F3E7E0" }}
     >
-      {/* Subtle radial background glow */}
+      {/* Subtle radial background glows */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background:
+          background: [
             "radial-gradient(ellipse 70% 60% at 70% 40%, rgba(210,224,191,0.35) 0%, transparent 70%)",
+            "radial-gradient(ellipse 55% 45% at 12% 88%, rgba(248,169,200,0.13) 0%, transparent 68%)",
+          ].join(", "),
         }}
       />
 
@@ -82,18 +84,18 @@ export default function Hero() {
                 alignItems: "center",
                 padding: "0.45rem 1.2rem",
                 borderRadius: "999px",
-                background: "rgba(191, 215, 234, 0.18)",
-                border: "1px solid rgba(191, 215, 234, 0.5)",
+                background: "rgba(191, 215, 234, 0.28)",
+                border: "1px solid rgba(191, 215, 234, 0.75)",
                 cursor: "default",
                 transition: "background 0.4s, border-color 0.4s",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(191, 215, 234, 0.32)";
-                e.currentTarget.style.borderColor = "rgba(191, 215, 234, 0.85)";
+                e.currentTarget.style.background = "rgba(191, 215, 234, 0.45)";
+                e.currentTarget.style.borderColor = "rgba(191, 215, 234, 1)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = "rgba(191, 215, 234, 0.18)";
-                e.currentTarget.style.borderColor = "rgba(191, 215, 234, 0.5)";
+                e.currentTarget.style.background = "rgba(191, 215, 234, 0.28)";
+                e.currentTarget.style.borderColor = "rgba(191, 215, 234, 0.75)";
               }}
             >
               {/* Soft dot accent */}
@@ -113,7 +115,7 @@ export default function Hero() {
                   fontFamily: "var(--font-dm-sans)",
                   fontWeight: 500,
                   fontSize: "0.78rem",
-                  letterSpacing: "0.22em",
+                  letterSpacing: "0.16em",
                   color: "#7aaac5",
                   textTransform: "uppercase",
                 }}
@@ -161,7 +163,7 @@ export default function Hero() {
             {/* Rounded pink border frame — filled with color, photo sits on top */}
             <div
               style={{
-                borderRadius: "0px",
+                borderRadius: "8px",
                 padding: "8px",
                 background: "#A9B8E8",
                 boxShadow: hovered === "top"
@@ -174,7 +176,7 @@ export default function Hero() {
                 style={{
                   width: "100%",
                   aspectRatio: "4/3",
-                  borderRadius: "0px",
+                  borderRadius: "8px",
                   overflow: "hidden",
                   position: "relative",
                 }}
@@ -228,7 +230,7 @@ export default function Hero() {
             {/* Rounded green border frame — filled with color, photo sits on top */}
             <div
               style={{
-                borderRadius: "0px",
+                borderRadius: "8px",
                 padding: "8px",
                 background: "#B4CEB3",
                 boxShadow: hovered === "bottom"
@@ -241,7 +243,7 @@ export default function Hero() {
                 style={{
                   width: "100%",
                   aspectRatio: "4/3",
-                  borderRadius: "0px",
+                  borderRadius: "8px",
                   overflow: "hidden",
                   position: "relative",
                 }}
@@ -299,6 +301,7 @@ export default function Hero() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1.2, delay: 0.6 }}
         className="absolute pointer-events-none"
+        data-no-flowers="true"
         style={{
           bottom: -85,
           left: -90,
@@ -319,7 +322,7 @@ export default function Hero() {
           }}
         >
           <Image
-            src="/flowers.png"
+            src="/flowers2.png"
             alt="Flower arrangement"
             fill
             className="object-cover"

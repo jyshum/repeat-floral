@@ -6,7 +6,7 @@ export default function RequestPage() {
       style={{
         minHeight: "100vh",
         background: "linear-gradient(150deg, #F3E7E0 0%, #FAD4D8 45%, #D2E0BF 100%)",
-        fontFamily: "var(--font-lato)",
+        fontFamily: "var(--font-dm-sans)",
       }}
     >
       <nav style={{ padding: "1.75rem 2rem" }}>

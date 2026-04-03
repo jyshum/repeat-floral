@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import Image from "next/image";
 
 const contacts = [
   {
@@ -51,6 +52,34 @@ export default function Footer() {
       }}
     >
       <div className="max-w-6xl mx-auto px-8 flex flex-col items-center gap-8">
+        {/* Brand mark */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          style={{ display: "flex", alignItems: "center", gap: "0.6rem", opacity: 0.6 }}
+        >
+          <Image
+            src="/repeatFloralLOGO.png"
+            alt="Repeat Floral"
+            width={28}
+            height={28}
+            className="object-contain"
+          />
+          <span
+            style={{
+              fontFamily: "var(--font-cormorant)",
+              fontWeight: 500,
+              fontSize: "0.95rem",
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: "#2d2d2d",
+            }}
+          >
+            Repeat Floral
+          </span>
+        </motion.div>
+
         {/* Contact pills */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -80,16 +109,18 @@ export default function Footer() {
                 fontSize: "0.82rem",
                 letterSpacing: "0.06em",
                 textDecoration: "none",
-                transition: "background 0.2s, color 0.2s",
+                transition: "background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease",
                 background: "transparent",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = "#C692C7";
                 e.currentTarget.style.color = "#fff";
+                e.currentTarget.style.boxShadow = "0 4px 16px rgba(198,146,199,0.35)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = "transparent";
                 e.currentTarget.style.color = "#C692C7";
+                e.currentTarget.style.boxShadow = "none";
               }}
             >
               {c.icon}
