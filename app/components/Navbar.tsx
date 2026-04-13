@@ -6,8 +6,8 @@ import Link from "next/link";
 
 const links = [
   { label: "Request", href: "/request" },
-  { label: "Meet the Team", href: "#team" },
-  { label: "Volunteer", href: "#volunteer" },
+  { label: "About Us", href: "#team" },
+  { label: "Join The Team", href: "#jointheteam" },
 ];
 
 export default function Navbar() {

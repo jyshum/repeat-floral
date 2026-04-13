@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
-import FlowerBackground from "./components/FlowerBackground";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -29,7 +28,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${cormorant.variable} ${dmSans.variable}`}>
       <body className="min-h-full" style={{ background: "#F3E7E0", color: "#2d2d2d" }}>
-        <FlowerBackground />
         {children}
       </body>
     </html>

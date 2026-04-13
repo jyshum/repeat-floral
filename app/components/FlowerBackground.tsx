@@ -22,7 +22,7 @@ const CENTER_PALETTE: Record<string, string[]> = {
 const NAVBAR_HEIGHT = 80;         // nav height + buffer
 const MAX_FLOWERS = 30;
 const SPAWN_INTERVAL_MS = 400;
-const STAY_MS = 4000;
+const STAY_MS = 1000;
 const IN_MS = 1000;
 const OUT_MS = 500;
 const CHECK_RADIUS = 22;          // collision padding around flower center
@@ -103,7 +103,7 @@ function overlapsFlower(x: number, y: number, size: number, flowers: Flower[]): 
 }
 
 // Rotund rounded petal: wide cubic bezier teardrop from center (10,10) to tip (10,3.5)
-const PETAL_PATH = "M 10 10 C 7 9.2, 6.8 5.2, 10 3.5 C 13.2 5.2, 13 9.2, 10 10 Z";
+const PETAL_PATH = "M 10 10 C 6.5 9, 7.2 3.8, 10 3.8 C 12.8 3.8, 13.5 9, 10 10 Z";
 
 function buildFlowerSVG(
   size: number,
@@ -157,7 +157,7 @@ export default function FlowerBackground() {
 
         if (isContentAt(x, y)) continue;
 
-        const size = 24.5 + Math.random() * 18; // 15–33 px
+        const size = 35 + Math.random() * 18; // 15–33 px
         if (overlapsFlower(x, y, size, flowersRef.current)) continue;
 
         const petalColor = rand(PETAL_COLORS);
@@ -179,7 +179,7 @@ export default function FlowerBackground() {
           width: ${size}px;
           height: ${size}px;
           opacity: 0;
-          transform: scale(0.1) rotate(${jitterRot}deg);
+          transform: scale(0.1) rotate(${jitterRot + 720}deg);
           transition: opacity ${IN_MS}ms ease, transform ${IN_MS}ms cubic-bezier(0.34, 1.56, 0.64, 1);
           pointer-events: none;
         `;
@@ -200,7 +200,7 @@ export default function FlowerBackground() {
         const outTimer = setTimeout(() => {
           wrapper.style.transition = `opacity ${OUT_MS}ms ease, transform ${OUT_MS}ms ease`;
           wrapper.style.opacity = "0";
-          wrapper.style.transform = `scale(0.15) rotate(${jitterRot * -1.5}deg)`;
+          wrapper.style.transform = `scale(0.15) rotate(${jitterRot - 360}deg)`;
 
           const removeTimer = setTimeout(() => {
             wrapper.remove();
