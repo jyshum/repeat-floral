@@ -190,7 +190,6 @@ export default function RequestPage() {
                 e.currentTarget.style.boxShadow = "0 4px 30px rgba(0,0,0,0.06)";
               }}
             >
-              <div style={{ fontSize: "1.8rem", marginBottom: "0.75rem" }}>🌸</div>
               <div
                 style={{
                   fontFamily: "var(--font-cormorant)",
@@ -239,7 +238,6 @@ export default function RequestPage() {
                 e.currentTarget.style.boxShadow = "0 4px 30px rgba(0,0,0,0.06)";
               }}
             >
-              <div style={{ fontSize: "1.8rem", marginBottom: "0.75rem" }}>💐</div>
               <div
                 style={{
                   fontFamily: "var(--font-cormorant)",
