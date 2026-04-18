@@ -121,6 +121,8 @@ export default function WorkflowSection() {
     };
 
     const handleWheel = (e: WheelEvent) => {
+      // Only hijack on desktop (md+)
+      if (window.innerWidth < 768) return;
       if (phaseRef.current === "released") return;
       e.preventDefault();
       dismissHint();
@@ -139,6 +141,8 @@ export default function WorkflowSection() {
     };
 
     const handleScroll = () => {
+      // Re-hijack only on desktop when user scrolls all the way back to top
+      if (window.innerWidth < 768) return;
       if (phaseRef.current === "released" && window.scrollY === 0) {
         phaseRef.current = "hijacked";
       }
