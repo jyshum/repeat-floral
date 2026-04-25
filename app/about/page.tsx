@@ -37,15 +37,92 @@ function FadeSection({
   );
 }
 
+const BLOOM_PETAL = "M 10 10 C 6.5 9, 7.2 3.8, 10 3.8 C 12.8 3.8, 13.5 9, 10 10 Z";
+
+function SectionFlower({
+  petalColor,
+  centerColor,
+  size = 160,
+  top,
+  right,
+  left,
+  bottom,
+  delay = 0,
+  zIndex = 1,
+  animName = "sectionSway",
+  duration = 6,
+}: {
+  petalColor: string;
+  centerColor: string;
+  size?: number;
+  top?: string;
+  right?: string;
+  left?: string;
+  bottom?: string;
+  delay?: number;
+  zIndex?: number;
+  animName?: string;
+  duration?: number;
+}) {
+  return (
+    <div
+      aria-hidden
+      style={{
+        position: "absolute",
+        top, right, left, bottom,
+        width: size,
+        height: size,
+        pointerEvents: "none",
+        zIndex,
+        animationName: animName,
+        animationDuration: `${duration}s`,
+        animationTimingFunction: "ease-in-out",
+        animationIterationCount: "infinite",
+        animationDelay: `${delay}s`,
+        transformOrigin: "center center",
+      }}
+    >
+      <svg viewBox="0 0 20 20" width={size} height={size}>
+        {[0, 1, 2, 3, 4].map((i) => (
+          <path
+            key={i}
+            d={BLOOM_PETAL}
+            fill={petalColor}
+            transform={`rotate(${i * 72}, 10, 10)`}
+          />
+        ))}
+        <circle cx="10" cy="10" r="1.8" fill={centerColor} />
+      </svg>
+    </div>
+  );
+}
+
 export default function AboutPage() {
   return (
     <main style={{ background: "#F3E7E0", minHeight: "100vh" }}>
+      <style>{`
+        @keyframes sectionSway {
+          0%   { transform: scale(1.0)  rotate(-12deg); }
+          50%  { transform: scale(1.1)  rotate(12deg);  }
+          100% { transform: scale(1.0)  rotate(-12deg); }
+        }
+        @keyframes sectionSwaySmall {
+          0%   { transform: scale(1.0)  rotate(-5deg); }
+          50%  { transform: scale(1.04) rotate(5deg);  }
+          100% { transform: scale(1.0)  rotate(-5deg); }
+        }
+      `}</style>
       <Navbar />
 
       {/* ── HERO ── */}
       <section className="grid grid-cols-1 md:grid-cols-2 pt-16 md:min-h-screen">
         {/* Text — full width on mobile, left half on desktop */}
-        <div className="flex flex-col justify-center px-6 py-16 md:px-14 md:py-24 gap-6">
+        <div className="flex flex-col justify-center px-6 py-16 md:px-14 md:py-24 gap-6" style={{ position: "relative" }}>
+          <SectionFlower petalColor="#FAD4D8" centerColor="#E988A6" size={90}  top="1.5rem" right="2.5rem" delay={1.1} zIndex={0} animName="sectionSwaySmall" duration={7.5} />
+          <SectionFlower petalColor="#F8A9C8" centerColor="#FAD4D8" size={70}  top="4rem"   right="1rem"   delay={2.0} zIndex={0} animName="sectionSwaySmall" duration={9}   />
+          <SectionFlower petalColor="#C692C7" centerColor="#FAD4D8" size={55}  top="1rem"   right="5rem"   delay={3.2} zIndex={0} animName="sectionSwaySmall" duration={8.2} />
+          <SectionFlower petalColor="#FDE38E" centerColor="#E988A6" size={65}  top="5rem"   right="3.5rem" delay={0.6} zIndex={0} animName="sectionSwaySmall" duration={10}  />
+          <SectionFlower petalColor="#E988A6" centerColor="#F6EFA6" size={160} top="2.5rem" right="1.5rem" delay={0}   zIndex={1} animName="sectionSway"      duration={6}   />
           <motion.div {...fadeUp(0.1)} style={{ display: "inline-flex" }}>
             <div
               style={{
@@ -58,7 +135,7 @@ export default function AboutPage() {
               }}
             >
               <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#BFD7EA", flexShrink: 0 }} />
-              Since 2021 &nbsp;·&nbsp; Coquitlam, BC
+              Since 2021 &nbsp;·&nbsp; Vancouver, BC
             </div>
           </motion.div>
 
@@ -162,7 +239,13 @@ export default function AboutPage() {
 
         <FadeSection
           className="order-2 flex flex-col justify-center px-6 py-12 md:px-20 md:py-24 gap-7"
+          style={{ position: "relative" }}
         >
+          <SectionFlower petalColor="#B4CEB3" centerColor="#D2E0BF" size={85}  top="1.5rem" right="2rem"  delay={2.2} zIndex={0} animName="sectionSwaySmall" duration={8}   />
+          <SectionFlower petalColor="#F6EFA6" centerColor="#B4CEB3" size={65}  top="4.5rem" right="0.5rem" delay={0.8} zIndex={0} animName="sectionSwaySmall" duration={9.5} />
+          <SectionFlower petalColor="#FAD4D8" centerColor="#D2E0BF" size={50}  top="0.5rem" right="5.5rem" delay={3.5} zIndex={0} animName="sectionSwaySmall" duration={7}   />
+          <SectionFlower petalColor="#E988A6" centerColor="#FAD4D8" size={72}  top="5.5rem" right="3rem"   delay={1.4} zIndex={0} animName="sectionSwaySmall" duration={11}  />
+          <SectionFlower petalColor="#D2E0BF" centerColor="#E988A6" size={170} top="2rem"   right="1.5rem" delay={1.8} zIndex={1} animName="sectionSway"      duration={6}   />
           <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.65rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "#8ab58a", fontWeight: 600 }}>
             How It Started
           </span>
@@ -201,8 +284,13 @@ export default function AboutPage() {
       <section className="grid grid-cols-1 md:grid-cols-2">
         <FadeSection
           className="order-1 flex flex-col justify-center px-6 py-12 md:px-20 md:py-24 gap-7"
-          style={{ background: "#F3E7E0" }}
+          style={{ background: "#F3E7E0", position: "relative" }}
         >
+          <SectionFlower petalColor="#FAD4D8" centerColor="#C692C7" size={80}  top="1.5rem" right="2.5rem" delay={4.0} zIndex={0} animName="sectionSwaySmall" duration={8.5} />
+          <SectionFlower petalColor="#E988A6" centerColor="#FAD4D8" size={62}  top="4.5rem" right="0.5rem" delay={1.8} zIndex={0} animName="sectionSwaySmall" duration={9}   />
+          <SectionFlower petalColor="#BFD7EA" centerColor="#C692C7" size={52}  top="0.5rem" right="5.5rem" delay={2.6} zIndex={0} animName="sectionSwaySmall" duration={7.5} />
+          <SectionFlower petalColor="#F8A9C8" centerColor="#FAD4D8" size={68}  top="5.5rem" right="3rem"   delay={0.9} zIndex={0} animName="sectionSwaySmall" duration={10}  />
+          <SectionFlower petalColor="#C692C7" centerColor="#FAD4D8" size={155} top="2.5rem" right="1.5rem" delay={3.5} zIndex={1} animName="sectionSway"      duration={6}   />
           <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.65rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "#C692C7", fontWeight: 600 }}>
             A Mentor We&apos;re Grateful For
           </span>
