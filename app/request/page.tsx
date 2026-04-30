@@ -79,17 +79,23 @@ export default function RequestPage() {
     if (param === "donate" || param === "request") setFormType(param);
   }, [searchParams]);
 
-  const handleDonateSubmit = (e: React.FormEvent) => {
+  const handleDonateSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: wire up to Google Sheets API
-    console.log("Donate submission:", donateData);
+    await fetch("/api/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ formType: "donate", ...donateData }),
+    });
     setSubmitted(true);
   };
 
-  const handleRequestSubmit = (e: React.FormEvent) => {
+  const handleRequestSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: wire up to Google Sheets API
-    console.log("Request submission:", requestData);
+    await fetch("/api/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ formType: "request", ...requestData }),
+    });
     setSubmitted(true);
   };
 
